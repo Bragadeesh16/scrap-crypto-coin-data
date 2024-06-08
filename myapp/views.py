@@ -21,9 +21,10 @@ class scraping_data(generics.GenericAPIView,mixins.CreateModelMixin):
 def scraping_detail(request,pk):
     print(pk)
     currency = currency_model.objects.get(id = pk)
-    print(currency.names)
-    
-    task = getting_the_data.delay(currency.names)
+    currency_names = currency.names.split(',')
+    print(currency_names)
+
+    task = getting_the_data.delay(currency_names)
     result = task.get() 
     print('Result:', result)
     return Response(result)

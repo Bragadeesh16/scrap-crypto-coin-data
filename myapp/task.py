@@ -31,6 +31,7 @@ def getting_the_data(currency):
         "socials": []
     }
 
+    results = []
 
     driver = webdriver.Chrome(options=options)
     driver.get(website)
@@ -54,7 +55,7 @@ def getting_the_data(currency):
     for currency in currency:
         search_input.clear()
         search_input.send_keys(currency)
-        time.sleep(3)
+        time.sleep(8)
         search_input.send_keys(Keys.RETURN)
 
         coin_name = driver.find_element(By.XPATH,'//span[@data-role = "coin-name"]')
@@ -99,5 +100,6 @@ def getting_the_data(currency):
                 for link in a_tags:
                     href = link.get_attribute('href')
                     data['socials'].append({"name": name, "url": href})
+        results.append(data) 
 
-        return data
+    return results
